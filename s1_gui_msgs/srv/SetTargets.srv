@@ -1,0 +1,7 @@
+# Replace the mission's target list. A service, not a topic, because the
+# operator needs to know it was accepted and why it was not.
+Target[] targets
+string issued_by
+---
+bool accepted
+string detail

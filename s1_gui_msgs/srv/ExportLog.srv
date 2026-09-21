@@ -1,0 +1,7 @@
+# Write the mission log to disk. Empty path means a timestamped file in the
+# manager's log directory.
+string path
+---
+bool ok
+string path        # where it actually went
+uint32 entries

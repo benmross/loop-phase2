@@ -1,0 +1,112 @@
+{
+  "exported": "2026-09-20 20:37:11",
+  "entries": [
+    {
+      "wall_time": "2026-09-20 20:34:51",
+      "ros_time_s": 0.0,
+      "kind": "info",
+      "detail": "mission manager up, origin 38.42287240, -110.78495573"
+    },
+    {
+      "wall_time": "2026-09-20 20:35:36",
+      "ros_time_s": 152.054,
+      "kind": "conversion",
+      "detail": "Post A (DD): 38.42293096, -110.78488702 -> east 6.00 m, north 6.50 m",
+      "name": "Post A (DD)",
+      "latitude": 38.42293096,
+      "longitude": -110.78488702,
+      "east_m": 6.0,
+      "north_m": 6.5
+    },
+    {
+      "wall_time": "2026-09-20 20:35:36",
+      "ros_time_s": 152.054,
+      "kind": "conversion",
+      "detail": "Post B (DDM): 38.42290843, -110.78503588 -> east -7.00 m, north 4.00 m",
+      "name": "Post B (DDM)",
+      "latitude": 38.42290843333333,
+      "longitude": -110.78503588333334,
+      "east_m": -7.0,
+      "north_m": 3.999
+    },
+    {
+      "wall_time": "2026-09-20 20:35:36",
+      "ros_time_s": 152.054,
+      "kind": "conversion",
+      "detail": "Post C (DMS): 38.42280028, -110.78492139 -> east 3.00 m, north -8.01 m",
+      "name": "Post C (DMS)",
+      "latitude": 38.422800277777775,
+      "longitude": -110.78492138888889,
+      "east_m": 2.999,
+      "north_m": -8.006
+    },
+    {
+      "wall_time": "2026-09-20 20:35:36",
+      "ros_time_s": 152.054,
+      "kind": "command",
+      "detail": "set_targets by console: 3 targets set",
+      "count": 3,
+      "accepted": true
+    },
+    {
+      "wall_time": "2026-09-20 20:35:53",
+      "ros_time_s": 167.454,
+      "kind": "info",
+      "detail": "published 3 targets on /gps_waypoints"
+    },
+    {
+      "wall_time": "2026-09-20 20:35:53",
+      "ros_time_s": 167.454,
+      "kind": "info",
+      "detail": "published 3 targets on /waypoints (local frame, no GPS converter in this world)"
+    },
+    {
+      "wall_time": "2026-09-20 20:35:53",
+      "ros_time_s": 167.454,
+      "kind": "command",
+      "detail": "START by console: running, heading for Post A (DD)",
+      "accepted": true,
+      "state": "RUNNING"
+    },
+    {
+      "wall_time": "2026-09-20 20:36:15",
+      "ros_time_s": 186.762,
+      "kind": "target",
+      "detail": "Post A (DD) reached",
+      "name": "Post A (DD)",
+      "distance_m": 1.985,
+      "tolerance_m": 2.0,
+      "east_m": 6.0,
+      "north_m": 6.5
+    },
+    {
+      "wall_time": "2026-09-20 20:36:37",
+      "ros_time_s": 205.973,
+      "kind": "target",
+      "detail": "Post B (DDM) reached",
+      "name": "Post B (DDM)",
+      "distance_m": 1.995,
+      "tolerance_m": 2.0,
+      "east_m": -7.0,
+      "north_m": 3.999
+    },
+    {
+      "wall_time": "2026-09-20 20:37:05",
+      "ros_time_s": 230.486,
+      "kind": "target",
+      "detail": "Post C (DMS) reached",
+      "name": "Post C (DMS)",
+      "distance_m": 1.994,
+      "tolerance_m": 2.0,
+      "east_m": 2.999,
+      "north_m": -8.006
+    },
+    {
+      "wall_time": "2026-09-20 20:37:05",
+      "ros_time_s": 230.486,
+      "kind": "state",
+      "detail": "mission complete",
+      "elapsed_s": 71.7
+    }
+  ]
+}

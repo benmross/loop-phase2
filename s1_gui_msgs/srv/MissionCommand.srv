@@ -1,0 +1,12 @@
+# Every operator action that changes what the rover is doing.
+uint8 START=0
+uint8 HOLD=1
+uint8 RESUME=2
+uint8 ABORT=3
+uint8 RESET=4
+
+uint8 command
+string issued_by
+---
+bool accepted
+string detail

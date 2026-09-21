@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>s1_gui</name>
+  <version>0.1.0</version>
+  <description>Operator console and mission manager for the S1 autonomous navigation challenge</description>
+  <maintainer email="ben.m.ross08@gmail.com">Ben Ross</maintainer>
+  <license>MIT</license>
+
+  <depend>rclpy</depend>
+  <depend>s1_gui_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <exec_depend>python3-pyqt5</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-pil</exec_depend>
+  <exec_depend>python3-pyproj</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+
+  <test_depend>python3-pytest</test_depend>
+  <export><build_type>ament_python</build_type></export>
+</package>

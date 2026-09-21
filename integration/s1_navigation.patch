@@ -1,0 +1,84 @@
+--- a/s1_navigation/astar_planner.py
++++ b/s1_navigation/astar_planner.py
+@@ -22,8 +22,10 @@
+ 
+ COSTMAP_WEIGHT = 3.0
+ 
+-WORLD_MIN = -10.0
+-WORLD_MAX = 10.0
++# Defaults for the flat obstacle world. The terrain world is 2 km across, so
++# these are parameters now: ros2 run ... --ros-args -p world_min:=-1000.0
++DEFAULT_WORLD_MIN = -10.0
++DEFAULT_WORLD_MAX = 10.0
+ 
+ 
+ class AStarPlanner(Node):
+@@ -39,6 +41,9 @@
+         self.waypoints = []
+         self.have_waypoints = False
+ 
++        self.world_min = self.declare_parameter('world_min', DEFAULT_WORLD_MIN).value
++        self.world_max = self.declare_parameter('world_max', DEFAULT_WORLD_MAX).value
++
+         self.current_waypoint_index = 0
+ 
+         qos = QoSProfile(
+@@ -99,7 +104,13 @@
+ 
+ 
+     def waypoint_callback(self, msg):
+-        if self.have_waypoints:
++        # A repeated identical list is the publisher being polite to late
++        # subscribers, and must not restart the mission. A different list is
++        # the operator re-tasking the rover, and must be taken.
++        incoming = [(round(p.position.x, 3), round(p.position.y, 3)) for p in msg.poses]
++        current = [(round(p.position.x, 3), round(p.position.y, 3)) for p in self.waypoints]
++        finished = self.current_waypoint_index >= len(self.waypoints)
++        if self.have_waypoints and incoming == current and not finished:
+             return
+ 
+         self.waypoints = list(msg.poses)
+@@ -140,9 +151,9 @@
+         # cell centres because these are the coordinates published in paths.
+         return self.in_world_bounds(*self.grid_to_world(x, y))
+ 
+-    @staticmethod
+-    def in_world_bounds(x, y):
+-        return WORLD_MIN <= x <= WORLD_MAX and WORLD_MIN <= y <= WORLD_MAX
++    def in_world_bounds(self, x, y):
++        return (self.world_min <= x <= self.world_max
++                and self.world_min <= y <= self.world_max)
+ 
+ 
+     def current_goal(self):
+--- a/s1_navigation/gps_waypoint_converter.py
++++ b/s1_navigation/gps_waypoint_converter.py
+@@ -67,12 +67,16 @@
+         return self.z_offset + self.height_range * value
+ 
+     def waypoint_callback(self, message):
+-        # One list per launch, matching the original planner's behaviour.
+-        if self.goals is not None:
++        # Any number of pairs, and a new list replaces the old one, so the
++        # operator console can re-task without restarting the launch.
++        if not message.data or len(message.data) % 2 or not all(
++                math.isfinite(v) for v in message.data):
++            self.get_logger().error('Expected latitude/longitude pairs')
+             return
+-        if len(message.data) != 6 or not all(math.isfinite(v) for v in message.data):
+-            self.get_logger().error('Expected three latitude/longitude pairs')
++        incoming = list(message.data)
++        if self.goals is not None and incoming == getattr(self, 'last_data', None):
+             return
++        self.last_data = incoming
+         goals = []
+         for lat, lon in zip(message.data[::2], message.data[1::2]):
+             if not (-90 <= lat <= 90 and -180 <= lon <= 180):
+@@ -85,6 +89,7 @@
+                 return
+             goals.append((x, y, self.terrain_height(x, y)))
+         self.goals = goals
++        self.pending = []
+         poses = PoseArray()
+         poses.header.frame_id = 'odom'
+         poses.header.stamp = self.get_clock().now().to_msg()

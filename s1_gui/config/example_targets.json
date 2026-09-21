@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "saved": "2026-09-20 20:00:00",
+  "origin": [38.42287240335025, -110.78495572815902],
+  "targets": [
+    {"name": "Post 1", "latitude": 38.4250000, "longitude": -110.7840000, "tolerance_m": 2.0},
+    {"name": "Post 2", "latitude": 38.4210000, "longitude": -110.7880000, "tolerance_m": 2.0},
+    {"name": "Post 3", "latitude": 38.4235000, "longitude": -110.7800000, "tolerance_m": 2.0}
+  ]
+}

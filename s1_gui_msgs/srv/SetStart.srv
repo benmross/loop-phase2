@@ -1,0 +1,11 @@
+# Publish the supplied start coordinate, which is what associates it with the
+# rover's spawn position: gps_odometry converts it and moves the model there.
+float64 latitude
+float64 longitude
+float64 altitude
+string issued_by
+---
+bool accepted
+string detail
+float64 east_m
+float64 north_m
