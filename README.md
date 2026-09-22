@@ -9,7 +9,11 @@ The rover, the planner and the controller are Matthew's
 This repository is the operator side and does not modify his: it talks to his
 nodes over the topics he publishes, in the frames he defined.
 
-![The console during a mission](media/console.png)
+[![The console during a mission](media/console.png)](media/demo.mp4)
+
+[One minute of it running](media/demo.mp4): the map layers, coordinates in
+three formats and one refused, a mission started and held and resumed, three
+targets reached, the navigation stack going off the air, and the log exported.
 
 ## What it does
 

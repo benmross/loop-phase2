@@ -96,7 +96,7 @@ class MissionManager(Node):
         # How long a running mission may go with no path before the active
         # target is called unreachable. Long enough to cover a replan, short
         # enough that an operator is not left watching a stationary rover.
-        self.unreachable_after = param('unreachable_after_s', 15.0).value
+        self.unreachable_after = param('unreachable_after_s', 25.0).value
         self.log_dir = Path(os.path.expanduser(param('log_dir', '~/.ros/s1_gui_logs').value))
         self.log_dir.mkdir(parents=True, exist_ok=True)
 
@@ -352,6 +352,13 @@ class MissionManager(Node):
         instead of leaving the operator watching a stationary rover.
         """
         if self.mission.state != RUNNING or self.mission.active_index < 0:
+            return
+        # The planner cannot plan before it has a costmap, and on a fresh
+        # launch that takes a few seconds. Counting that as "unreachable"
+        # blames the target for the stack still starting up, which is what
+        # this did the first time it was recorded.
+        if self.fresh.status('costmap')[0] in (Freshness.NEVER, Freshness.LOST):
+            self.last_path_at = time.monotonic()
             return
         if self.last_path_at is None:
             self.last_path_at = time.monotonic()
